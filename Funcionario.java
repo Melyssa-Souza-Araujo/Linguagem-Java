@@ -1,6 +1,6 @@
 package exe04;
 
-public class Funcionario {
+public abstract class Funcionario {
 	private String nome;
 	private String cargo;
 	private int idade;
@@ -50,7 +50,10 @@ public class Funcionario {
 	}
 	
 	public static void main(String args[]) {
-		Funcionario funcionario1 = new Funcionario();
+		Gerente funcionario1 = new Gerente();
+		CaixaOperador funcionario2 = new CaixaOperador();
+		Segurança funcionario3 = new Segurança();
+		/*Funcionario funcionario1 = new Funcionario();
 		funcionario1.setNome("Ana");
 		funcionario1.setIdade(26);
 		funcionario1.setCidade("Santos");
@@ -69,8 +72,9 @@ public class Funcionario {
 		funcionario3.setIdade(45);
 		funcionario3.setCidade("Santos");
 		funcionario3.setCargo("gerente");
-		System.out.println("Funcionário 3: " + funcionario3.getNome());
+		System.out.println("Funcionário 3: " + funcionario3.getNome());*/
 
 	}
 	
 }
+
