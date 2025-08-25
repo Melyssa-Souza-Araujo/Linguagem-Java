@@ -1,13 +1,15 @@
 package exe05;
 
-public class Assalariado extends Empregado{
-	private double salario;
+public class Assalariado extends Empregado {
+    private double salario;
 
-	public double getSalario() {
-		return salario;
-	}
+    public Assalariado(String nome, String sobrenome, String cpf, double salario) {
+        super(nome, sobrenome, cpf);
+        this.salario = salario;
+    }
 
-	public void setSalario(double salario) {
-		this.salario = salario;
-	}
+    @Override
+    public double calcularVencimento() {
+        return salario;
+    }
 }
