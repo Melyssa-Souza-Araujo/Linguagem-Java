@@ -1,18 +1,17 @@
 package exe05;
 
-public class Horista {
-	private double precoHora;
-	public double getPrecoHora() {
-		return precoHora;
-	}
-	public void setPrecoHora(double precoHora) {
-		this.precoHora = precoHora;
-	}
-	public double getHorasTabalhada() {
-		return horasTabalhada;
-	}
-	public void setHorasTabalhada(double horasTabalhada) {
-		this.horasTabalhada = horasTabalhada;
-	}
-	private double horasTabalhada;
+public class Horista extends Empregado {
+    private double precoHora;
+    private double horasTrabalhadas;
+
+    public Horista(String nome, String sobrenome, String cpf, double precoHora, double horasTrabalhadas) {
+        super(nome, sobrenome, cpf);
+        this.precoHora = precoHora;
+        this.horasTrabalhadas = horasTrabalhadas;
+    }
+
+    @Override
+    public double calcularVencimento() {
+        return precoHora * horasTrabalhadas;
+    }
 }
