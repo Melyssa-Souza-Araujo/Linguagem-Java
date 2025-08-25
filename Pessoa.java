@@ -1,16 +1,13 @@
 package exe06;
 
 public class Pessoa {
-	private String nome;
+    protected String nome;
 
-	public String getNome() {
-		return nome;
-	}
+    public Pessoa(String nome) {
+        this.nome = nome;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
-	public void calcularImpostoRenda() {}
-	
+    public void calcularImpostoRenda() {
+        System.out.println("Cálculo genérico de imposto de renda.");
+    }
 }
