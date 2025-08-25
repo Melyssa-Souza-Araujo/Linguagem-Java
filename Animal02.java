@@ -18,4 +18,15 @@ public class Animal02 {
     public void setNumero(int numero) {
         this.numero = ++numero;
     }
+
+    public static void main(String[] args) {
+        Animal02 gato = new Animal02();
+        System.out.println("Gato -> " + gato.getNumero());
+
+        Animal02 cachorro = new Animal02();
+        System.out.println("Cachorro -> " + cachorro.getNumero());
+
+        Animal02 peixe = new Animal02();
+        System.out.println("Peixe -> " + peixe.getNumero());
+    }
 }
