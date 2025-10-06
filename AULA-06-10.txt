@@ -1,0 +1,165 @@
+//cliente
+package com.seuprojeto.mvcclientboot.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+
+
+@Entity
+@Table(name = "CLIENTE")
+public class Cliente {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String nome;
+	private String email;
+	private String telefone;
+	
+	public Cliente() {}
+	
+	public Cliente(String nome, String email, String telefone) {
+		this.nome = nome;
+		this.email = email;
+		this.telefone = telefone;
+	}
+	
+	public Long getId() { return id; }
+	public void setId(Long id) { this.id = id; }
+	public String getNome() { return nome; }
+	public void setNome(String nome) { this.nome = nome; }
+	public String getEmail() { return email; }
+	public void setEmail(String email) { this.email = email; }
+	public String getTelefone() { return telefone; }
+	public void setTelefone(String telefone) { this.telefone = telefone; }
+}
+
+//controller
+
+package com.seuprojeto.mvcclienteboot.controller;
+ 
+import com.seuprojeto.mvcclienteboot.model.Cliente;
+import com.seuprojeto.mvcclienteboot.repository.ClienteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+ 
+@Controller
+@RequestMapping("/clientes")
+public class ClienteController {
+ 
+    @Autowired // Injeca o Repository (acesso ao Model/Dados)
+    private ClienteRepository clienteRepository;
+ 
+    // Rota GET para exibir o formulário de cadastro
+    @GetMapping("/novo")
+    public String exibirFormularioCadastro(Model model) {
+        model.addAttribute("cliente", new Cliente()); // Nome do atributo HTML (View)
+        return "clientes-form";
+    }
+ 
+    // Rota POST para salvar o Cliente
+    @PostMapping
+    public String adicionarCliente(Cliente cliente) {
+        // Controller salva os dados no Model
+        clienteRepository.save(cliente);
+ 
+        // Redireciona para a listagem (chama o GET /clientes)
+        return "redirect:/clientes";
+    }
+ 
+    // Rota GET para listar todas as Clientes
+    @GetMapping
+    public String listarClientes(Model model) {
+        // Controller busca a lista de dados no Model
+        Iterable<Cliente> clientes = clienteRepository.findAll();
+ 
+        // Anexa os dados no objeto Model para a View
+        model.addAttribute("clientes", clientes);
+ 
+        // Retorna o nome da View (clientes.html)
+        return "clientes";
+    }
+}
+
+//BANCO
+
+CREATE TABLE IF NOT EXISTS CLIENTE(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(255) NOT NULL,
+	email VARCHAR(255),
+	telefone VARCHAR(20)
+);
+
+INSERT INTO CLIENTE (nome, email, telefone) VALUES
+('Roberto Santos', 'roberto@email.com', '1111-1111');
+INSERT INTO CLIENTE (nome, email, telefone) VALUES
+('Ana Paula', 'ana@email.com', '2222-2222');
+
+//CLIENTE HTML
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Clientes</title>
+</head>
+<body>
+    <h1>Lista de Clientes (VIEW)</h1>
+ 
+    <p><a th:href="@{/clientes/novo}">Cadastrar Novo Cliente</a></p>
+ 
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cliente : ${clientes}">
+                <td th:text="${cliente.id}"></td>
+                <td th:text="${cliente.nome}"></td>
+                <td th:text="${cliente.email}"></td>
+                <td th:text="${cliente.telefone}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+
+//CLIENTE FORM HTML
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Cliente</title>
+</head>
+<body>
+    <h1>Formulário de Cliente (VIEW)</h1>
+ 
+    <form th:action="@{/clientes}" th:object="${cliente}" method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" th:field="*{nome}" required><br><br>
+ 
+        <label for="email">Email:</label>
+        <input type="email" id="email" th:field="*{email}" required><br><br>
+ 
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" th:field="*{telefone}"><br><br>
+ 
+        <button type="submit">Salvar Cliente</button>
+    </form>
+ 
+    <p><a th:href="@{/clientes}">Voltar para a lista</a></p>
+</body>
+</html>
