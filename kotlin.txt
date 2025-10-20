@@ -1,0 +1,40 @@
+//delcarar constante
+fun main() {
+    val num: Int = 22;
+    println("número: " + num)
+}
+
+//mensagens usa $
+
+fun main() {
+    val num: Int = 22;
+    println("Você tem $num mensagens não lidas1")
+}
+
+//auto declaração de tipo
+
+fun main() {
+    val num = 22;
+    println("Você tem $num mensagens não lidas1")
+}
+
+//operação
+
+
+fun main() {
+    val msgNaoLida = 33;
+    val msgLida = 22;
+    println("Você tem ${msgLida + msgNaoLida} mensagens!")
+    println("Mensagens lidas: $msgLida")
+    println("Mensagens não lidas: $msgNaoLida")
+}
+
+//variável
+fun main() {
+    var cartTotal = 0;
+	cartTotal = 20;
+    println("Total: $cartTotal")
+    
+}
+
+//ctrl: atalho de comentário
